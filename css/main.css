@@ -6307,7 +6307,7 @@ ul.blog-filters .nav-filter {
   content: "";
 }
 .d-icon-home:before {
-  content: "";
+  content: "🏠";
 }
 .d-icon-filter-2:before {
   content: "";
@@ -6364,7 +6364,7 @@ ul.blog-filters .nav-filter {
   content: "";
 }
 .d-icon-times:before {
-  content: "";
+  content: "✖";
 }
 .d-icon-times-circle:before {
   content: "";

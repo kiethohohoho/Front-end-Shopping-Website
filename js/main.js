@@ -175,7 +175,7 @@ $.extend($.easing, {
           paddingOffsetBottom: 0,
         },
         templateCartAddedAlert:
-          '<div class="alert alert-simple alert-btn cart-added-alert"><a href="cart.html" class="btn btn-success btn-md">View Cart</a><span>"{{name}}" has been added to your cart.</span><button type="button" class="btn btn-link btn-close"><i class="d-icon-times"></i></button></div>',
+          '<div class="alert alert-simple alert-btn cart-added-alert"><a href="#" class="btn btn-success btn-md">View Cart</a><span>"{{name}}" has been added to your cart.</span><button type="button" class="btn btn-link btn-close"><i class="d-icon-times"></i></button></div>',
         zoomImage: {
           responsive: !0,
           zoomWindowFadeIn: 750,
@@ -790,7 +790,6 @@ $.extend($.easing, {
                 i.siblings().removeClass("active in"),
                 i.addClass("active in"),
                 n.find(".nav-link").removeClass("active"),
-                n.find('[href="' + t + '"]').addClass("active"),
                 $("html").animate({ scrollTop: i.offset().top - 150 });
             }
           );
@@ -891,60 +890,29 @@ $.extend($.easing, {
           : $.magnificPopup.open(n);
       }),
       (Riode.initPopups = function () {
-        Riode.$body
-          .on("click", "a.login, .login-link", function (e) {
-            e.preventDefault(),
-              Riode.popup(
-                { items: { src: $(e.currentTarget).attr("href") } },
-                "login"
-              );
-          })
-          .on("click", ".register-link", function (e) {
-            e.preventDefault(),
-              Riode.popup(
-                {
-                  items: { src: $(e.currentTarget).attr("href") },
-                  callbacks: {
-                    ajaxContentAdded: function () {
-                      this.wrap.find('[href="#register"]').click();
-                    },
-                  },
+        Riode.$body.on("click", "a.login, .login-link", function (e) {
+          e.preventDefault(),
+            Riode.popup(
+              { items: { src: $(e.currentTarget).attr("href") } },
+              "login"
+            );
+        });
+        $(".home > #newsletter-popup").length > 0 &&
+          "true" !== Riode.getCookie("hideNewsletterPopup") &&
+          setTimeout(function () {
+            Riode.popup({
+              items: { src: "#newsletter-popup" },
+              type: "inline",
+              tLoading: "",
+              mainClass: "mfp-newsletter mfp-flip-popup",
+              callbacks: {
+                beforeClose: function () {
+                  $("#hide-newsletter-popup")[0].checked &&
+                    Riode.setCookie("hideNewsletterPopup", !0, 7);
                 },
-                "login"
-              );
-          })
-          .on("click", ".btn-iframe", function (e) {
-            e.preventDefault(),
-              Riode.popup(
-                {
-                  items: {
-                    src:
-                      '<video src="' +
-                      $(e.currentTarget).attr("href") +
-                      '" autoplay loop controls>',
-                    type: "inline",
-                  },
-                  mainClass: "mfp-video-popup",
-                },
-                "video"
-              );
-          }),
-          $(".home > #newsletter-popup").length > 0 &&
-            "true" !== Riode.getCookie("hideNewsletterPopup") &&
-            setTimeout(function () {
-              Riode.popup({
-                items: { src: "#newsletter-popup" },
-                type: "inline",
-                tLoading: "",
-                mainClass: "mfp-newsletter mfp-flip-popup",
-                callbacks: {
-                  beforeClose: function () {
-                    $("#hide-newsletter-popup")[0].checked &&
-                      Riode.setCookie("hideNewsletterPopup", !0, 7);
-                  },
-                },
-              });
-            }, 7500);
+              },
+            });
+          }, 7500);
       }),
       (Riode.initPurchasedMinipopup = function () {
         setInterval(function () {
@@ -953,7 +921,7 @@ $.extend($.easing, {
               message: "Someone Purchased",
               productClass: "product-cart",
               name: "Daisy Shoes Sonia by Sonia-Blue",
-              nameLink: "product.html",
+              nameLink: "#",
               imageSrc: "images/cart/product-1.jpg",
               isPurchased: !0,
             },
@@ -1415,7 +1383,7 @@ $.extend($.easing, {
                           : i.find(".product-price .price").html(),
                       count: i.find(".quantity").val(),
                       actionTemplate:
-                        '<div class="action-group d-flex mt-3"><a href="cart.html" class="btn btn-sm btn-outline btn-primary btn-rounded mr-2">View Cart</a><a href="checkout.html" class="btn btn-sm btn-primary btn-rounded">Check Out</a></div>',
+                        '<div class="action-group d-flex mt-3"><a href="#" class="btn btn-sm btn-outline btn-primary btn-rounded mr-2">View Cart</a><a href="#" class="btn btn-sm btn-primary btn-rounded">Check Out</a></div>',
                     });
                 });
               })(this),
@@ -1444,7 +1412,7 @@ $.extend($.easing, {
                           : i.find(".product-price .price").html(),
                       count: i.find(".quantity").val(),
                       actionTemplate:
-                        '<div class="action-group d-flex mt-3"><a href="compare.html" class="btn btn-sm btn-outline btn-primary btn-rounded mr-2">Compare</a><a href="checkout.html" class="btn btn-sm btn-primary btn-rounded">Check Out</a></div>',
+                        '<div class="action-group d-flex mt-3"><a href="" class="btn btn-sm btn-outline btn-primary btn-rounded mr-2">Compare</a><a href="#" class="btn btn-sm btn-primary btn-rounded">Check Out</a></div>',
                     });
                 });
               })(this);
@@ -1531,7 +1499,7 @@ $.extend($.easing, {
                   : t.find(".product-price").html(),
               count: t.find(".quantity").val(),
               actionTemplate:
-                '<div class="action-group d-flex mt-3"><a href="compare.html" class="btn btn-sm btn-outline btn-primary btn-rounded mr-2">Compare</a><a href="checkout.html" class="btn btn-sm btn-primary btn-rounded">Check Out</a></div>',
+                '<div class="action-group d-flex mt-3"><a href="" class="btn btn-sm btn-outline btn-primary btn-rounded mr-2">Compare</a><a href="#" class="btn btn-sm btn-primary btn-rounded">Check Out</a></div>',
             });
         }
         function i(e) {
@@ -1610,10 +1578,10 @@ $.extend($.easing, {
             t.addClass("load-more-overlay loading"),
             setTimeout(function () {
               t.removeClass("load-more-overlay loading")
-                .html('<i class="d-icon-heart-full"></i> Browse wishlist')
+                .html('<i class="fa-solid fa-heart"></i> Browse wishlist')
                 .addClass("added")
                 .attr("title", "Browse wishlist")
-                .attr("href", "wishlist.html");
+                .attr("href", "");
             }, 500));
         }
         function a(e) {
@@ -2719,7 +2687,7 @@ $.extend($.easing, {
                             ? n.find(".quantity").val()
                             : 1,
                         actionTemplate:
-                          '<div class="action-group d-flex"><a href="cart.html" class="btn btn-sm btn-outline btn-primary btn-rounded">View Cart</a><a href="checkout.html" class="btn btn-sm btn-primary btn-rounded">Check Out</a></div>',
+                          '<div class="action-group d-flex"><a href="#" class="btn btn-sm btn-outline btn-primary btn-rounded">View Cart</a><a href="#" class="btn btn-sm btn-primary btn-rounded">Check Out</a></div>',
                       }))
                   : n.hasClass("product-single") ||
                     Riode.Minipopup.open({
@@ -2739,7 +2707,7 @@ $.extend($.easing, {
                           ? n.find(".quantity").val()
                           : 1,
                       actionTemplate:
-                        '<div class="action-group d-flex"><a href="cart.html" class="btn btn-sm btn-outline btn-primary btn-rounded">View Cart</a><a href="checkout.html" class="btn btn-sm btn-primary btn-rounded">Check Out</a></div>',
+                        '<div class="action-group d-flex"><a href="#" class="btn btn-sm btn-outline btn-primary btn-rounded">View Cart</a><a href="#" class="btn btn-sm btn-primary btn-rounded">Check Out</a></div>',
                     });
               }
             )
@@ -2761,7 +2729,7 @@ $.extend($.easing, {
                     ? t.find(".quantity").val()
                     : 1,
                 actionTemplate:
-                  '<div class="action-group d-flex"><a href="cart.html" class="btn btn-sm btn-outline btn-primary btn-rounded">View Cart</a><a href="checkout.html" class="btn btn-sm btn-primary btn-rounded">Check Out</a></div>',
+                  '<div class="action-group d-flex"><a href="#" class="btn btn-sm btn-outline btn-primary btn-rounded">View Cart</a><a href="#" class="btn btn-sm btn-primary btn-rounded">Check Out</a></div>',
               });
             });
         },
@@ -2798,7 +2766,7 @@ $.extend($.easing, {
                         ? t.find(".quantity").val()
                         : 1,
                     actionTemplate:
-                      '<div class="action-group d-flex"><a href="compare.html" class="btn btn-sm btn-outline btn-primary btn-rounded">Compare</a><a href="checkout.html" class="btn btn-sm btn-primary btn-rounded">Check Out</a></div>',
+                      '<div class="action-group d-flex"><a href="" class="btn btn-sm btn-outline btn-primary btn-rounded">Compare</a><a href="#" class="btn btn-sm btn-primary btn-rounded">Check Out</a></div>',
                   });
               }
             );
@@ -2910,7 +2878,7 @@ $.extend($.easing, {
                   .removeClass("load-more-overlay loading")
                   .find("i")
                   .toggleClass("d-icon-heart")
-                  .toggleClass("d-icon-heart-full"),
+                  .toggleClass("fa-solid fa-heart"),
                   t.hasClass("added")
                     ? t.attr("title", "Remove from wishlist")
                     : t.attr("title", "Add to wishlist");
